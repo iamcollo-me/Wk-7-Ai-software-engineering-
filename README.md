@@ -72,7 +72,39 @@ Remediation Steps:
 2. Apply fairness-enhancing algorithms (e.g., Reweighing, Adversarial Debiasing).
 3. Monitor and evaluate model performance regularly.
 
-Bonus Task: Policy Proposal for Ethical AI Use in Healthcare*
+
+
+Part 4: Ethical Reflection (5%)
+
+Prompt:
+Reflect on a personal project (past or future). How will you ensure it adheres to ethical AI principles?
+
+---
+
+Ethical Reflection Example
+
+In a past project, I developed a machine learning model to assist in shortlisting candidates for university scholarships using academic and demographic data. To ensure the project adhered to ethical AI principles, I would, and will in future projects, apply the following practices:
+
+1. Bias Identification and Mitigation:
+   I would begin by auditing training data for bias—such as disproportionately low representation of certain socioeconomic or demographic groups—using tools like AI Fairness 360. If bias is detected, I would either rebalance the dataset, implement algorithmic fairness constraints, or apply pre/post-processing techniques to minimize disparate impact in predictions.
+
+2. Transparency and Explainability:
+   I would prioritize using models that provide interpretable decisions, such as explainable boosting machines or rule-based classifiers where possible. For complex models, I would implement local explainability tools (like LIME or SHAP) to offer insight into individual predictions. I would document the data sources, modeling choices, evaluation metrics, and limitations.
+
+3. User Autonomy and Consent:
+   Consent would be obtained from all participants for use of their data, outlining in plain language how their data is managed, stored, and processed. Individuals would have the right to opt out and request deletion of their data in accordance with privacy regulations like GDPR.
+
+4. Regular Audits and Accountability:
+   I would routinely monitor model performance for fairness, especially as new data is collected, and update the model as needed to prevent unintentional harm. All decisions from the AI system would be reviewable by a human committee to ensure accountability and recourse.
+
+5. Societal and Environmental Responsibility:
+   If the project impacts stakeholders at scale, I would engage diverse groups for feedback and conduct impact assessments to ensure the solution is equitable, sustainable, and beneficial to all.
+
+By following these practices, I will strive to build AI systems that are fair, accountable, and trustworthy, fostering societal good while minimizing harm.
+
+
+
+Bonus Task: Policy Proposal for Ethical AI Use in Healthcare
 
 Guideline for Ethical AI Use in Healthcare
 
