@@ -45,7 +45,7 @@ plt.xlabel('Race')
 plt.ylabel('False Positive Rate')
 plt.title('Disparity in False Positive Rates')
 plt.show()
-*Explanation:*
+Explanation:
 
 1. Load the COMPAS dataset and convert it to BinaryLabelDataset format.
 2. Split the data into training and testing sets.
@@ -53,21 +53,60 @@ plt.show()
 4. Apply Reweighing algorithm to mitigate bias.
 5. Visualize disparity in false positive rates.
 
-*Why This Works:*
+Why This Works:
 
 - Reweighing algorithm assigns different weights to samples to mitigate bias.
 - Fairness metrics provide insights into the model's performance.
 
-*Summary:*
+Summary:
 
 The audit reveals racial bias in the COMPAS dataset. Applying Reweighing algorithm and visualizing fairness metrics can help mitigate bias and ensure fairness in AI systems.
 
-*Report:*
+Report:
 
 The COMPAS Recidivism Dataset audit reveals racial bias in risk scores, with disparate impact on African American defendants. The disparate impact ratio is 1.43, indicating that African American defendants are more likely to be misclassified as high-risk. To mitigate this bias, we applied the Reweighing algorithm, which assigns different weights to samples. The algorithm reduced the disparate impact ratio to 1.12. We also visualized the disparity in false positive rates, which highlights the need for fairness interventions.
 
-*Remediation Steps:*
+Remediation Steps:
 
 1. Collect more diverse and representative data.
 2. Apply fairness-enhancing algorithms (e.g., Reweighing, Adversarial Debiasing).
 3. Monitor and evaluate model performance regularly.
+
+Bonus Task: Policy Proposal for Ethical AI Use in Healthcare*
+
+Guideline for Ethical AI Use in Healthcare
+
+Introduction:
+Artificial intelligence (AI) has the potential to revolutionize healthcare, but it also raises concerns about bias, transparency, and patient consent. This guideline outlines the principles and practices for the responsible development and deployment of AI systems in healthcare.
+
+Principles:
+
+1. Patient Autonomy: Patients have the right to control their data and make informed decisions about their care.
+2. Non-Maleficence: AI systems should not harm patients or compromise their safety.
+3. Justice: AI systems should be fair and unbiased, ensuring equitable access to healthcare.
+4. Transparency: AI systems should be transparent, explainable, and accountable.
+
+Patient Consent Protocols:
+
+1.Informed Consent: Patients should provide informed consent before their data is used for AI development or deployment.
+2. Data Protection: Patient data should be protected and anonymized to prevent unauthorized access or misuse.
+3. Right to Opt-Out: Patients have the right to opt-out of AI-driven care or data usage.
+
+Bias Mitigation Strategies:
+
+1. Data Quality: Ensure high-quality, diverse, and representative data to train AI models.
+2. Fairness Metrics: Regularly evaluate AI systems for bias and fairness using metrics like disparate impact ratio and equal opportunity difference.
+3. Human Oversight: Implement human oversight and review processes to detect and address bias.
+
+Transparency Requirements:
+1. Explainability: AI systems should provide clear and concise explanations for their decisions or recommendations.
+2. Model Transparency: AI models should be transparent, and their development processes should be auditable.
+3. Accountability: Establish accountability mechanisms for AI-driven decisions or actions.
+
+Implementation:
+
+1. Multidisciplinary Teams: Develop AI systems with multidisciplinary teams, including clinicians, ethicists, and patients.
+2. Continuous Monitoring: Regularly monitor AI systems for bias, transparency, and patient consent.
+3. Patient Engagement: Engage patients and caregivers in AI development and deployment processes.
+
+By following this guideline, we can ensure that AI systems in healthcare are developed and deployed responsibly, prioritizing patient autonomy, fairness, and transparency.
