@@ -2,48 +2,86 @@
 The COMPAS Recidivism Dataset audit reveals racial bias in risk scores, with disparate impact on African American defendants.
 
 Solution:
-Import necessary libraries
+ AI Fairness 360 Audit on COMPAS Dataset
 import pandas as pd
 import numpy as np
-from aif360.algorithms.preprocessing import Reweighing
-from aif360.datasets import BinaryLabelDataset
-from aif360.metrics import BinaryDatasetMetric, ClassificationMetric
 import matplotlib.pyplot as plt
+from aif360.datasets import CompasDataset
+from aif360.metrics import BinaryLabelDatasetMetric, ClassificationMetric
+from aif360.algorithms.preprocessing import Reweighing
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 
-Load COMPAS dataset
-data = pd.read_csv('compas.csv')
+1. Load COMPAS dataset using AI Fairness 360
+compas = CompasDataset().convert_to_dataframe()[0]
 
-Convert data to BinaryLabelDataset format
-binary_data = BinaryLabelDataset(df=data, 
-                                label_names=['two_year_recid'], 
-                                protected_attribute_names=['race'], 
-                                favorable_label=0, 
-                                unfavorable_label=1)
+2. Specify protected attribute and label columns
+protected_attr = 'race'
+label = 'two_year_recid'
+favorable_label = 0
+unfavorable_label = 1
 
-Split data into training and testing sets
-train_data, test_data = binary_data.split([0.7], shuffle=True)
+3. Prepare data for modeling
+features = compas.drop(columns=[label, protected_attr]).copy()
+target = compas[label]
+protected = compas[protected_attr]
 
-Compute fairness metrics
-metric_train = BinaryDatasetMetric(train_data, 
-                                   unprivileged_groups=[{'race': 0}], 
-                                   privileged_groups=[{'race': 1}])
+X_train, X_test, y_train, y_test, pr_train, pr_test = train_test_split(
+    features, target, protected, test_size=0.3, random_state=42, stratify=target
+)
 
-Print fairness metrics
-print("Disparate Impact:", metric_train.disparate_impact())
-print("Statistical Parity Difference:", metric_train.statistical_parity_difference())
+ 4. Train a model and get predictions
+clf = RandomForestClassifier(random_state=42)
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
 
-Apply Reweighing algorithm to mitigate bias
-rw = Reweighing(unprivileged_groups=[{'race': 0}], 
-                 privileged_groups=[{'race': 1}])
-transformed_data = rw.fit_transform(train_data)
+ 5. Convert prediction results for AIF360 metrics
+test_df = X_test.copy()
+test_df[label] = y_test.values
+test_df[protected_attr] = pr_test.values
 
-Visualize disparity in false positive rates
-plt.bar(['African American', 'Caucasian'], 
-        [metric_train.false_positive_rate(unprivileged=True), 
-         metric_train.false_positive_rate(privileged=True)])
-plt.xlabel('Race')
-plt.ylabel('False Positive Rate')
-plt.title('Disparity in False Positive Rates')
+pred_df = X_test.copy()
+pred_df[label] = y_pred
+pred_df[protected_attr] = pr_test.values
+
+dataset_true = CompasDataset(
+    df=test_df,
+    label_name=label,
+    protected_attribute_names=[protected_attr]
+)
+dataset_pred = CompasDataset(
+    df=pred_df,
+    label_name=label,
+    protected_attribute_names=[protected_attr]
+)
+
+6. Calculate fairness metrics
+class_metric = ClassificationMetric(
+    dataset_true,
+    dataset_pred,
+    unprivileged_groups=[{protected_attr: 'African-American'}],
+    privileged_groups=[{protected_attr: 'Caucasian'}]
+)
+# Disparate Impact Ratio
+di_ratio = class_metric.disparate_impact()
+# Equal Opportunity Difference
+eod = class_metric.equal_opportunity_difference()
+# False Positive Rate difference
+fpr_diff = class_metric.false_positive_rate_difference()
+
+print(f"Disparate Impact Ratio: {di_ratio:.2f}")
+print(f"Equal Opportunity Difference: {eod:.2f}")
+print(f"False Positive Rate Difference: {fpr_diff:.2f}")
+
+ 7. Plot disparity in False Positive Rates
+labels = ['African-American', 'Caucasian']
+fpr = [
+    class_metric.false_positive_rate(privileged=False),
+    class_metric.false_positive_rate(privileged=True)
+]
+plt.bar(labels, fpr, color=['red', 'blue'])
+plt.ylabel("False Positive Rate")
+plt.title("False Positive Rate by Race (COMPAS)")
 plt.show()
 Explanation:
 
