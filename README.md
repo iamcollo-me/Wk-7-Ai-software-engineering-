@@ -1,4 +1,65 @@
 
+Part 2: Case Study Analysis
+
+
+Case 1: Biased Hiring Tool (Amazon’s AI recruiting tool penalized female candidates)
+
+a) Identify the source of bias:
+
+Training Data Bias:The model was trained on past resumes submitted over a 10-year period. As the tech industry workforce was male-dominated, the data predominantly reflected male candidates and reinforced historical gender disparities.
+Feature Bias: The model potentially weighted features correlated with gender (e.g., women's colleges, use of gendered language/activities) negatively.
+Feedback Loop:Systemic discrimination in feedback (selected hires being mostly male) further entrenched bias.
+
+
+b) Three fixes to make the tool fairer:
+
+1. Data Rebalancing/De-biasing:
+   Actively re-balance training data to ensure gender representation. Remove or adjust features that directly or indirectly encode gender.
+   
+2. Algorithmic Fairness Constraints:
+    Integrate fairness-aware algorithms or constraints in the model to prevent disparate impact (e.g., using regularization, adversarial debiasing, or fairness constraints during model training).
+
+3. Ongoing Bias & Impact Audits:
+   Continuously monitor model predictions for disparate outcomes and conduct audits using tools like AI Fairness 360. Include human review in final hiring decisions.
+
+c) Metrics to evaluate fairness after correction:
+
+Disparate Impact Ratio: Checks if hiring rates across genders are statistically balanced (ideally between 0.8 and 1.25).
+Equal Opportunity Difference:Measures difference in true positive rates across gender groups.
+Demographic Parity:Proportion of positive outcomes should be similar for male and female candidates.
+False Positive/Negative Rate Parity:These rates should not differ significantly by gender.
+Human-in-the-loop Feedback: Periodically auditing for individual candidate complaints/reports.
+
+
+Case 2: Facial Recognition in Policing (System misidentifies minorities at higher rates)
+
+a) Ethical Risks:
+
+Wrongful Arrests:False positives can lead to innocent individuals, especially from minority communities, being suspects or even detained erroneously.
+Discrimination: Amplifies historical and systemic biases, further marginalizing vulnerable populations.
+Privacy Violations:Broad and often non-consensual surveillance erodes civil liberties and public trust.
+Lack of Accountability:“Black box” decisions without proper review processes make it hard to appeal or correct errors.
+
+
+b) Policies for Responsible Deployment:
+
+1. Mandatory Bias Audits & Transparency:
+    Run external audits before deployment and publish results. Disclose model performance, including subgroup error rates.
+
+2. Strict Use Guidelines & Human Oversight:
+    Use facial recognition as a supportive tool only; require multiple sources of identification before acting. Human officers must review all AI matches.
+
+3. Community Consultation & Consent:
+   Involve affected communities and civil rights groups in policy decisions; require explicit legal authorization for surveillance deployments.
+
+4. Redress Mechanisms:
+    Clear, accessible processes for individuals to challenge or correct misidentifications.
+
+5. Usage Limitation:
+    Restrict to serious crimes investigation only, minimize use in public spaces, and regularly review necessity and proportionality.
+
+
+
 The COMPAS Recidivism Dataset audit reveals racial bias in risk scores, with disparate impact on African American defendants.
 
 Solution:
